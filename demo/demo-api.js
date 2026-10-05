@@ -58,6 +58,26 @@
     deps('d3', 'marketing-site', 0.91 * GB, `${P}/marketing-site`, 'Not used for 2 months', false),
     deps('d4', 'side-project', 0.74 * GB, `${P}/side-project`, 'Not used for 5 months', false),
     deps('d5', 'old-api', 0.52 * GB, `${P}/archive/old-api`, 'Not used for 8 months', false),
+    item({ id: 'b5', category: 'build', title: 'rust-cli', kindLabel: 'Rust build output', subtitle: `${P}/rust-cli`, size: 6.3 * GB,
+      action: 'delete', risk: 'safe', recommended: true, tags: ['Not used for 3 months'],
+      what: 'Compiled code and build artifacts Cargo writes while you build, test or run this project.',
+      after: 'The next `cargo build` compiles everything again, which can take a few minutes.',
+      lose: 'No. Only generated files are removed. Your source code is untouched.' }),
+    item({ id: 'b6', category: 'build', title: 'android-app', kindLabel: 'Gradle build output', subtitle: `${P}/android-app`, size: 3.1 * GB,
+      action: 'delete', risk: 'safe', recommended: true, tags: ['Not used for 2 months'],
+      what: 'Compiled code and build artifacts Gradle writes for this project (Android, Kotlin or Java).',
+      after: 'The next Gradle build compiles everything again.',
+      lose: 'No. Only generated files are removed. Your source code is untouched.' }),
+    item({ id: 'd6', category: 'deps', title: 'ml-notebooks', kindLabel: 'Python virtual environment', subtitle: `${P}/ml-notebooks`, size: 2.9 * GB,
+      action: 'delete', risk: 'safe', recommended: true, active: false, installCmd: 'uv sync', tags: ['Not used for 4 months'],
+      what: 'Python virtual environment for this project: the packages it needs, installed into .venv.',
+      after: 'Run `uv sync` before you work on it again. It restores the exact versions from uv.lock.',
+      lose: 'No, unless you installed packages into it by hand that your project files do not list. Your code is untouched.' }),
+    item({ id: 'd7', category: 'deps', title: 'ios-app', kindLabel: 'CocoaPods', subtitle: `${P}/ios-app`, size: 1.2 * GB,
+      action: 'delete', risk: 'check', recommended: false, active: false, installCmd: 'pod install', tags: ['Not used for 2 months'],
+      what: 'CocoaPods for this project: the packages it needs, installed into Pods.',
+      after: 'Run `pod install` before you work on it again. It restores the exact versions from Podfile.lock.',
+      lose: 'No, unless you edited files inside Pods by hand. Your Podfile and code are untouched. CocoaPods keeps no per-file record of what it installed, so Clearspace cannot prove nothing in Pods was edited by hand. It is never selected for you.' }),
     wt('w1', 'agent-checkout-flow', 'feat/checkout-flow', 2.31 * GB),
     wt('w2', 'agent-search-filters', 'feat/search-filters', 2.12 * GB, { unpushed: 2 }),
     wt('w3', 'agent-fix-header', 'fix/header-overlap', 1.96 * GB, { active: true }),
@@ -89,6 +109,14 @@
       what: 'Chromium, Firefox and WebKit builds used by Playwright tests and browser tools.',
       after: 'Run `npx playwright install` before running browser tests again.',
       lose: 'No, but they must be downloaded again (needs internet).' }),
+    item({ id: 'p5', key: 'xcode-derived', category: 'pkg', title: 'Xcode DerivedData', subtitle: '~/Library/Developer/Xcode/DerivedData', size: 8.4 * GB,
+      action: 'empty', risk: 'safe', recommended: true,
+      what: 'Xcode build products and indexes.', after: 'Xcode rebuilds and re-indexes projects the next time you open them.',
+      lose: 'No, but they must be rebuilt when a tool needs them.' }),
+    item({ id: 'p6', key: 'cargo-registry', category: 'pkg', title: 'Cargo downloaded crates', subtitle: '~/.cargo/registry/cache', size: 1.5 * GB,
+      action: 'delete', risk: 'safe', recommended: true,
+      what: 'Rust packages (crates) Cargo downloaded.', after: 'Cargo downloads crates again when a project needs them.',
+      lose: 'No, but they must be downloaded again (needs internet) when a tool needs them.' }),
     app('a1', 'Google Chrome', 1.2 * GB, '~/Library/Caches/com.google.Chrome'),
     app('a2', 'Visual Studio Code', 0.86 * GB, '~/Library/Caches/com.microsoft.VSCode'),
     app('a3', 'Slack', 0.44 * GB, '~/Library/Caches/com.tinyspeck.slackmacgap'),
@@ -99,15 +127,21 @@
       what: 'A downloaded installer or archive. Once the app is installed or the files extracted, it is usually not needed.',
       after: 'It moves to the Trash. You can put it back until you empty the Trash.',
       lose: 'Only if you still need this file. Check before cleaning.' }),
+    item({ id: 'f2', category: 'files', group: 'backup', title: 'My iPhone', kindLabel: 'iPhone 13 backup',
+      subtitle: '~/Library/Application Support/MobileSync/Backup/00008030-SAMPLE', size: 18.6 * GB, action: 'trash', risk: 'check', recommended: false,
+      tags: ['Backed up 214 days ago'],
+      what: 'A backup of an iPhone or iPad that Finder made on this Mac.',
+      after: 'It moves to the Trash. You can put it back until you empty the Trash.',
+      lose: 'Yes, once the Trash is emptied: you could no longer restore the device from this backup. Keep it unless the device is backed up somewhere else, such as iCloud, or you no longer have it.' }),
   ];
 
   const CATS = [
-    ['build', 'Build caches', 'Files that Next.js, Turborepo and other tools generate while you build or run a project. They are rebuilt automatically.'],
-    ['deps', 'node_modules', 'Installed packages for each project. Your lockfile lets you reinstall the exact same versions in a minute or two.'],
+    ['build', 'Build caches', 'Files that build tools create while you work: Next.js, Rust, Gradle, Swift, Flutter, Python test caches and more. They are rebuilt automatically.'],
+    ['deps', 'Dependencies', 'Packages installed inside each project: node_modules, Python virtual environments, CocoaPods, Composer and more. They can be installed again from your project files.'],
     ['leftovers', 'Leftover copies', 'Extra working copies of projects: AI-agent worktrees and duplicated project folders.'],
-    ['pkg', 'Developer caches', 'Download caches for npm, pnpm, Bun, Homebrew, Playwright and similar tools. They refill only with what you use.'],
+    ['pkg', 'Developer caches', 'Download caches for npm, pip, Cargo, Gradle, Maven, Homebrew, Xcode and similar tools. They refill only with what you use.'],
     ['apps', 'App caches & logs', 'Temporary files that apps keep in your Library. Only caches known to be safe are selected for you. Apple system caches are never touched.'],
-    ['files', 'Downloads & Trash', 'Large files in Downloads and what is already in your Trash. Nothing here is selected for you.'],
+    ['files', 'Downloads, backups & Trash', 'Large files in Downloads, old iPhone and iPad backups, and what is already in your Trash. Nothing here is selected for you.'],
   ];
   const categories = () => CATS.map(([id, name, blurb]) => {
     const l = items.filter((i) => i.category === id);
@@ -146,7 +180,7 @@
       const before = { ...disk };
       for (let k = 0; k < chosen.length; k++) { emit('clean', { index: k + 1, total: chosen.length, title: chosen[k].title }); await wait(180); }
       // pnpm shares files with its store: deleting pnpm node_modules frees little until the store is pruned.
-      const freed = chosen.reduce((a, i) => a + (i.category === 'deps' ? i.size * 0.06 : i.key === 'pnpm-prune' ? i.size * 0.85 : i.size), 0);
+      const freed = chosen.reduce((a, i) => a + (i.category === 'deps' && i.pm === 'pnpm' ? i.size * 0.06 : i.key === 'pnpm-prune' ? i.size * 0.85 : i.size), 0);
       disk.free += freed; disk.used -= freed;
       items = items.filter((i) => !chosen.includes(i));
       history = [{ at: Date.now(), freed, estimated: chosen.reduce((a, i) => a + i.size, 0), items: chosen.length }, ...history];

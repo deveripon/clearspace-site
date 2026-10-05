@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Clearspace: free up disk space on your Mac, safely</title>
-  <meta name="description" content="Clearspace finds build caches, node_modules, leftover AI-agent worktrees and app caches on your Mac, explains each one, and cleans only what you approve. Free and open source.">
+  <meta name="description" content="Clearspace finds what is filling your Mac: build caches and packages from any stack, app caches, old iPhone backups, big downloads and leftover AI-agent worktrees. It explains each one and cleans only what you approve. Free and open source.">
   <meta name="theme-color" content="#071a1f">
   <meta name="author" content="Ripon (deveripon)">
   <meta name="copyright" content="© 2026 Ripon (deveripon). All rights reserved.">
@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" href="assets/img/icon-180.png">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Clearspace: free up disk space on your Mac, safely">
-  <meta property="og:description" content="Finds build caches, node_modules, agent worktrees and app caches. Explains every item. Cleans only what you approve. Free and open source.">
+  <meta property="og:description" content="Finds build caches, installed packages, app caches, old backups and big downloads on your Mac. Explains every item. Cleans only what you approve. Free and open source.">
   <meta property="og:image" content="assets/img/og.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -89,12 +89,12 @@
       <div class="mk-reveal" style="--y:16px">
         <a href="#safety" class="mk-pill-link">
           <span class="mk-pill-new">Open source</span>
-          Built for developers who use AI coding agents
+          For developers and everyday Mac users
           <svg class="ic ic-13" aria-hidden="true"><use href="#i-arrow"/></svg>
         </a>
       </div>
       <h1 class="mk-reveal t-hero" style="--d:50ms">Free up space on your Mac<br class="br-sm"> without the guesswork</h1>
-      <p class="mk-reveal mk-hero-copy" style="--d:150ms">Clearspace finds the build caches, node_modules, leftover agent worktrees and app caches filling your disk. It explains every item in plain words and cleans only what you approve.</p>
+      <p class="mk-reveal mk-hero-copy" style="--d:150ms">Clearspace finds the build caches, installed packages, app caches, old backups and big downloads filling your disk. It explains every item in plain words and cleans only what you approve.</p>
       <div class="mk-reveal mk-actions" style="--d:250ms">
         <a href="#install" class="mk-btn mk-btn-white">Install Clearspace</a>
         <a href="#tour" class="mk-btn mk-btn-ghost">Watch the tour <svg class="ic ic-15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -107,10 +107,9 @@
     </div>
     <div class="mk-reveal mk-hero-shot" style="--d:400ms;--y:40px">
       <div class="mk-glass">
-        <img src="assets/img/app-overview.png" width="1600" height="1086" alt="Clearspace after a scan: a disk bar shows 23.3 GB selected to clean, above a grid of categories such as build caches, node_modules and leftover copies, each with its size.">
+        <img src="assets/img/app-overview.png" width="1600" height="1086" alt="Clearspace after a scan: a disk bar shows 23.3 GB selected to clean, above a list of categories such as build caches, dependencies and leftover copies, each with its size.">
       </div>
     </div>
-    <p class="mk-hero-foot">For Macs that run Node.js, Next.js, Turborepo and AI coding agents</p>
   </section>
 
   <!-- ============================================================= Tour -->
@@ -251,11 +250,13 @@
   <section aria-label="What Clearspace finds" class="mk-strip">
     <ul>
       <li><code>.next</code><span>Next.js</span></li>
-      <li><code>.turbo</code><span>Turborepo</span></li>
-      <li><code>node_modules</code><span>npm, pnpm, Yarn, Bun</span></li>
-      <li><code>.claude/worktrees</code><span>Agent worktrees</span></li>
-      <li><code>~/.npm</code><span>Package caches</span></li>
+      <li><code>node_modules</code><span>JavaScript</span></li>
+      <li><code>target</code><span>Rust, Maven</span></li>
+      <li><code>.venv</code><span>Python</span></li>
+      <li><code>build</code><span>Gradle, Flutter</span></li>
+      <li><code>DerivedData</code><span>Xcode</span></li>
       <li><code>~/Library/Caches</code><span>App caches</span></li>
+      <li><code>MobileSync</code><span>iPhone backups</span></li>
     </ul>
   </section>
 
@@ -264,7 +265,7 @@
     <div class="mk-split mk-pad">
       <div class="mk-reveal">
         <span class="mk-chip">Features</span>
-        <h2 class="t-display mt-4">Everything that quietly fills a developer’s disk</h2>
+        <h2 class="t-display mt-4">Everything that quietly fills your Mac</h2>
       </div>
       <p class="mk-reveal mk-lede mk-split-right" style="--d:100ms">One scan covers your projects, your package managers and your apps. Each item says what it is, what happens after cleaning, and whether you lose anything.</p>
     </div>
@@ -275,7 +276,7 @@
         <div class="mk-tile-head">
           <span class="mk-mono">01 · Build caches</span>
           <h3 class="t-tile">Gigabytes your builds leave behind</h3>
-          <p class="mk-body">Next.js dev caches and Turborepo caches grow with every run. They are rebuilt automatically, so they are always safe to clear.</p>
+          <p class="mk-body">Next.js, Turborepo, Rust, Gradle, Swift and Flutter output grows with every run. It is rebuilt automatically, so it is safe to clear.</p>
         </div>
         <div class="mk-tile-body">
           <div class="mk-panel">
@@ -293,9 +294,9 @@
       <!-- 02 -->
       <article class="mk-tile">
         <div class="mk-tile-head">
-          <span class="mk-mono">02 · node_modules</span>
+          <span class="mk-mono">02 · Dependencies</span>
           <h3 class="t-tile">Only projects you’ve stopped using</h3>
-          <p class="mk-body">Projects you worked on recently stay unticked. Your lockfile brings back the exact same packages whenever you return.</p>
+          <p class="mk-body">node_modules, Python virtual environments, CocoaPods and more. Projects you worked on recently stay unticked, and your lockfile brings back the exact same packages.</p>
         </div>
         <div class="mk-tile-body">
           <div class="mk-panel" data-nm>
@@ -421,10 +422,10 @@
     <div class="mk-reveal mk-demo-wrap" style="--y:32px">
       <div class="mk-window">
         <div class="mk-window-bar" aria-hidden="true"><i></i><i></i><i></i><span>Clearspace · sample data</span></div>
-        <iframe class="mk-demo-frame" title="Clearspace interactive demo with sample data" data-src="demo/index.html" loading="lazy"></iframe>
+        <iframe class="mk-demo-frame" title="Clearspace interactive demo with sample data" data-src="demo/app.html" loading="lazy"></iframe>
         <img class="mk-demo-fallback" src="assets/img/app-review.png" width="1600" height="1086" alt="The review step: a sheet lists every item that will be cleaned, grouped by how it is cleaned, with Cancel and Clean buttons.">
       </div>
-      <p class="mk-demo-note">The live demo needs a wider screen. <a href="demo/index.html">Open it full screen</a></p>
+      <p class="mk-demo-note">The live demo needs a wider screen. <a href="demo/app.html">Open it full screen</a></p>
     </div>
   </section>
 
@@ -513,7 +514,7 @@
     <div class="mk-reveal mk-cta">
       <div>
         <h2 class="t-title on-dark">Disk full again? Get it back in a few clicks.</h2>
-        <p class="mk-cta-copy">Clearspace knows where developer Macs hide their gigabytes, and it tells you what each one is before anything is removed.</p>
+        <p class="mk-cta-copy">Clearspace knows where Macs hide their gigabytes, and it tells you what each one is before anything is removed.</p>
         <div class="mk-actions mk-actions-left">
           <a href="#install" class="mk-btn mk-btn-white">Install Clearspace</a>
           <a href="https://github.com/deveripon/clearSpace" class="mk-btn mk-btn-ghost"><svg class="ic ic-15" aria-hidden="true"><use href="#i-github"/></svg>View on GitHub</a>
