@@ -1,0 +1,21 @@
+Copyright (c) 2026 Ripon (deveripon). All rights reserved.
+
+This license covers the Clearspace website in this folder: its design, layout,
+written copy, images, screenshots, icons, the product tour animation
+(assets/js/tour.js) and any video exported from it.
+
+No part of this website may be copied, reproduced, modified, published,
+distributed or used to create derivative works without prior written
+permission from the copyright holder.
+
+The Clearspace application itself is separate open-source software, released
+under the MIT License at https://github.com/deveripon/clearSpace. The files in
+demo/ that are copied from that application (app.js, styles.css, index.html)
+remain under the MIT License.
+
+The broom symbol in the Clearspace logo (assets/brand/) is the "Clean" icon
+from Hugeicons (https://hugeicons.com), MIT License, Copyright (c) 2024 Halal
+Labs. That icon stays under its own license; the tile, colours, wordmark and
+lockup around it are covered by this notice.
+
+THIS WEBSITE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
